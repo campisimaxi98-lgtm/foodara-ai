@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOODARA AI - Comprá mejor. Comé mejor. Desperdiciá menos.</title>
+    <meta name="description" content="Plataforma de inteligencia artificial para optimizar tus decisiones alimentarias. Ahorrá, comé mejor y reducí el desperdicio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">🍽️</div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="nav-logo-icon">🍽️</span>
+                <span class="nav-logo-text">FOODARA<span class="nav-logo-ai">AI</span></span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features" class="nav-link">Funcionalidades</a>
+                <a href="#how-it-works" class="nav-link">Cómo funciona</a>
+                <a href="#download" class="nav-link">Descargar</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </div>
+            <a href="#download" class="nav-cta">Descargar Gratis</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" class="mobile-link">Funcionalidades</a>
+        <a href="#how-it-works" class="mobile-link">Cómo funciona</a>
+        <a href="#download" class="mobile-link">Descargar</a>
+        <a href="#faq" class="mobile-link">FAQ</a>
+        <a href="#download" class="mobile-cta">Descargar Gratis</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-grid"></div>
+            <div class="hero-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-badge" data-animate="fade-up">
+                <span class="badge-dot"></span>
+                IA Argentina para Argentinos
+            </div>
+            <h1 class="hero-title" data-animate="fade-up" data-delay="100">
+                Comprá mejor.<br>
+                <span class="hero-gradient-text">Comé mejor.</span><br>
+                Desperdiciá menos.
+            </h1>
+            <p class="hero-subtitle" data-animate="fade-up" data-delay="200">
+                Plataforma de inteligencia artificial que optimiza tus decisiones alimentarias.
+                Ahorrá dinero, comé más sano y reducí el desperdicio en tu hogar.
+            </p>
+            <div class="hero-actions" data-animate="fade-up" data-delay="300">
+                <a href="#download" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Descargar Gratis
+                </a>
+                <a href="#how-it-works" class="btn btn-ghost btn-lg">
+                    Ver cómo funciona
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="hero-stats" data-animate="fade-up" data-delay="400">
+                <div class="stat">
+                    <span class="stat-number" data-count="10000">0</span>
+                    <span class="stat-label">Usuarios activos</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="35">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Ahorro promedio</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-count="50">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Menos desperdicio</span>
+                </div>
+            </div>
+            <div class="hero-mockup" data-animate="fade-up" data-delay="500">
+                <div class="phone-mockup">
+                    <div class="phone-frame">
+                        <div class="phone-notch"></div>
+                        <div class="phone-screen">
+                            <div class="mockup-header">
+                                <div class="mockup-greeting">Hola, Juan 👋</div>
+                                <div class="mockup-avatar">JP</div>
+                            </div>
+                            <div class="mockup-cards">
+                                <div class="mockup-card mockup-card-green">
+                                    <div class="mockup-card-icon">💰</div>
+                                    <div class="mockup-card-info">
+                                        <span class="mockup-card-label">Ahorro este mes</span>
+                                        <span class="mockup-card-value">$45.200</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-card mockup-card-amber">
+                                    <div class="mockup-card-icon">⏰</div>
+                                    <div class="mockup-card-info">
+                                        <span class="mockup-card-label">Próximos a vencer</span>
+                                        <span class="mockup-card-value">3 items</span>
+                                    </div>
+                                </div>
+                                <div class="mockup-card mockup-card-blue">
+                                    <div class="mockup-card-icon">🛒</div>
+                                    <div class="mockup-card-info">
+                                        <span class="mockup-card-label">Lista de compras</span>
+                                        <span class="mockup-card-value">12 items</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mockup-list">
+                                <div class="mockup-list-item">
+                                    <span>🥛</span><span>Leche x3</span><span class="mockup-price">$1.800</span>
+                                </div>
+                                <div class="mockup-list-item">
+                                    <span>🍞</span><span>Pan lactal</span><span class="mockup-price">$1.200</span>
+                                </div>
+                                <div class="mockup-list-item">
+                                    <span>🍎</span><span>Manzanas x1kg</span><span class="mockup-price">$2.400</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-badge">Funcionalidades</span>
+                <h2 class="section-title">Todo lo que necesitás en una app</h2>
+                <p class="section-subtitle">Potenciada por inteligencia artificial, diseñada para Argentina</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-animate="fade-up" data-delay="0">
+                    <div class="feature-icon feature-icon-green">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                    </div>
+                    <h3 class="feature-title">Compras Inteligentes</h3>
+                    <p class="feature-desc">Analizamos precios y encontramos las mejores ofertas para vos. Compará supermercados y ahorrá en cada compra.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up" data-delay="100">
+                    <div class="feature-icon feature-icon-amber">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3 class="feature-title">Despensa Digital</h3>
+                    <p class="feature-desc">Registra lo que tenés en tu casa. Recibí alertas antes de que se venza y reducí el desperdicio a la mitad.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up" data-delay="200">
+                    <div class="feature-icon feature-icon-blue">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="feature-title">Menús Optimizados</h3>
+                    <p class="feature-desc">Generá menús semanales según tu presupuesto, gustos y lo que tenés en tu despensa. IA que se adapta a vos.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up" data-delay="300">
+                    <div class="feature-icon feature-icon-red">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Zero Desperdicio</h3>
+                    <p class="feature-desc">Detección inteligente de alimentos en riesgo. Recetas para aprovechar lo que tenés antes de que se pierda.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up" data-delay="400">
+                    <div class="feature-icon feature-icon-purple">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="feature-title">OCR de Tickets</h3>
+                    <p class="feature-desc">Escaneá tus tickets de compra con la cámara. Registramos todo automáticamente y analizamos tus gastos.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up" data-delay="500">
+                    <div class="feature-icon feature-icon-teal">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Asistente IA</h3>
+                    <p class="feature-desc">Chatbot conversacional que responde tus preguntas sobre nutrición, recetas y planificación de comidas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-badge">Cómo funciona</span>
+                <h2 class="section-title">Empezá en 3 simples pasos</h2>
+                <p class="section-subtitle">Sin complicaciones. Descargá, configurá y empezá a ahorrar.</p>
+            </div>
+            <div class="steps">
+                <div class="step" data-animate="fade-up" data-delay="0">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Descargá la app</h3>
+                        <p class="step-desc">Disponible gratis para Android, iOS y navegador. Un solo código, todas las plataformas.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-animate="fade-up" data-delay="200">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Configurá tu perfil</h3>
+                        <p class="step-desc">Contanos tu presupuesto, cuántas personas hay en tu casa y tus preferencias alimentarias.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" data-animate="fade-up" data-delay="400">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Empezá a ahorrar</h3>
+                        <p class="step-desc">La IA se encarga del resto. Recomendaciones, alertas y menús personalizados para vos.</p>
+                    </div>
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="download-bg">
+            <div class="download-orb download-orb-1"></div>
+            <div class="download-orb download-orb-2"></div>
+        </div>
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-badge section-badge-light">Descargar</span>
+                <h2 class="section-title section-title-light">Descargá FOODARA ahora</h2>
+                <p class="section-subtitle section-subtitle-light">Elegí tu plataforma y empezá a transformar tu alimentación.</p>
+            </div>
+            <div class="download-grid" data-animate="fade-up" data-delay="200">
+                <!-- Android -->
+                <a href="https://github.com/foodara/foodara-ai/releases/latest/download/foodara-android.apk" class="download-card" target="_blank" rel="noopener">
+                    <div class="download-card-glow"></div>
+                    <div class="download-card-content">
+                        <div class="download-platform-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.523 2.237a.367.367 0 00-.023-.062 1.88 1.88 0 00-.553-1.058L14.538.21a.369.369 0 00-.522.002l-1.45 1.45a1.903 1.903 0 00-.486-.328V.369a.37.37 0 00-.37-.37H9.816a.37.37 0 00-.37.37v1.023a1.87 1.87 0 00-.49.332L7.504.212a.37.37 0 00-.524-.004l-2.41 2.41a1.88 1.88 0 00-.552 1.056.37.37 0 00-.022.061L2.07 11.254a.372.372 0 00.132.458l4.16 3.12v7.038a.37.37 0 00.37.37h1.85a.37.37 0 00.37-.37v-4.289a1.88 1.88 0 001.044.321 1.88 1.88 0 001.044-.321v4.289a.37.37 0 00.37.37h1.85a.37.37 0 00.37-.37v-7.038l4.16-3.12a.373.373 0 00.132-.458L17.523 2.237zM6.424 12.21l-2.81-2.11 2.81-7.552 2.81 7.552-2.81 2.11zm5.552 0l-2.81-2.11 2.81-7.552 2.81 7.552-2.81 2.11z"/>
+                            </svg>
+                        </div>
+                        <div class="download-card-info">
+                            <span class="download-label">Descargar para</span>
+                            <span class="download-platform">Android</span>
+                            <span class="download-desc">APK directo - Android 6.0+</span>
+                        </div>
+                        <div class="download-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- iOS -->
+                <a href="https://apps.apple.com/app/foodara-ai/id000000000" class="download-card" target="_blank" rel="noopener">
+                    <div class="download-card-glow"></div>
+                    <div class="download-card-content">
+                        <div class="download-platform-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                        </div>
+                        <div class="download-card-info">
+                            <span class="download-label">Descargar para</span>
+                            <span class="download-platform">iOS / iPhone</span>
+                            <span class="download-desc">App Store - iOS 15.0+</span>
+                        </div>
+                        <div class="download-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Web -->
+                <a href="https://foodara.app" class="download-card" target="_blank" rel="noopener">
+                    <div class="download-card-glow"></div>
+                    <div class="download-card-content">
+                        <div class="download-platform-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <div class="download-card-info">
+                            <span class="download-label">Abrir en</span>
+                            <span class="download-platform">Navegador Web</span>
+                            <span class="download-desc">foodara.app - Sin instalar nada</span>
+                        </div>
+                        <div class="download-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Windows -->
+                <a href="https://github.com/foodara/foodara-ai/releases/latest/download/foodara-windows.exe" class="download-card" target="_blank" rel="noopener">
+                    <div class="download-card-glow"></div>
+                    <div class="download-card-content">
+                        <div class="download-platform-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                            </svg>
+                        </div>
+                        <div class="download-card-info">
+                            <span class="download-label">Descargar para</span>
+                            <span class="download-platform">Windows</span>
+                            <span class="download-desc">Windows 10+ - App de escritorio</span>
+                        </div>
+                        <div class="download-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="qr-section" data-animate="fade-up" data-delay="400">
+                <p class="qr-text">Escaneá el código QR con tu celular para descargar</p>
+                <div class="qr-placeholder">
+                    <div class="qr-pattern">
+                        <div class="qr-grid">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <span class="qr-label">foodara.app</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-badge">Testimonios</span>
+                <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+            </div>
+            <div class="testimonials-grid" data-animate="fade-up" data-delay="200">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Ahorré un 30% en mis compras del supermercado. La IA me recomienda siempre los mejores precios. ¡Maravillosa!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MG</div>
+                        <div>
+                            <span class="testimonial-name">María García</span>
+                            <span class="testimonial-location">Buenos Aires</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"La despensa digital cambió mi vida. No desperdicio más comida. Las alertas de vencimiento me salvan la semana."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">CL</div>
+                        <div>
+                            <span class="testimonial-name">Carlos López</span>
+                            <span class="testimonial-location">Córdoba</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Los menús semanales son increíbles. Se adaptan a mi presupuesto y a lo que ya tengo en la heladera. Inteligencia pura."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AR</div>
+                        <div>
+                            <span class="testimonial-name">Ana Rodríguez</span>
+                            <span class="testimonial-location">Rosario</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-title">Preguntas frecuentes</h2>
+            </div>
+            <div class="faq-list" data-animate="fade-up" data-delay="200">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>¿FOODARA es gratis?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, FOODARA es completamente gratuito. Podés usar todas las funcionalidades básicas sin costo. En el futuro ofreceremos planes premium con funciones avanzadas, pero la app siempre será usable sin pagar.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>¿Mis datos están seguros?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutamente. Usamos cifrado de extremo a extremo, hashing Argon2 para contraseñas y tokens JWT de corta duración. Tus datos nunca se comparten con terceros y cumplimos con la normativa de protección de datos.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>¿Funciona en todo Argentina?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, FOODARA está diseñada para funcionar en todo el país. Nuestra base de datos de productos incluye supermercados y almacenes de todas las provincias. Los precios se actualizan periódicamente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>¿Necesito conexión a internet?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>La app requiere conexión para análisis de IA, comparación de precios y sincronización. Sin embargo, podés ver tu despensa y listas guardadas sin conexión. Sincronizamos cuando volvés a tener internet.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>¿Cómo funciona la IA de FOODARA?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Usamos modelos de lenguaje avanzados (como Claude y GPT) para entender tus preferencias, analizar patrones de compra y generar recomendaciones personalizadas. La IA aprende de tus hábitos y mejora con el tiempo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card" data-animate="fade-up">
+                <div class="cta-content">
+                    <h2 class="cta-title">¿Listo para comer mejor y ahorrar más?</h2>
+                    <p class="cta-desc">Unite a miles de argentinos que ya están transformando su alimentación con FOODARA AI.</p>
+                    <a href="#download" class="btn btn-white btn-lg">
+                        Descargar Gratis
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="cta-emojis">
+                    <span class="cta-emoji cta-emoji-1">🍽️</span>
+                    <span class="cta-emoji cta-emoji-2">🛒</span>
+                    <span class="cta-emoji cta-emoji-3">💰</span>
+                    <span class="cta-emoji cta-emoji-4">🧠</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <span class="nav-logo-icon">🍽️</span>
+                        <span class="nav-logo-text">FOODARA<span class="nav-logo-ai">AI</span></span>
+                    </a>
+                    <p class="footer-tagline">Comprá mejor. Comé mejor. Desperdiciá menos.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Producto</h4>
+                    <a href="#features" class="footer-link">Funcionalidades</a>
+                    <a href="#download" class="footer-link">Descargar</a>
+                    <a href="#faq" class="footer-link">FAQ</a>
+                    <a href="#" class="footer-link">Changelog</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Compañía</h4>
+                    <a href="#" class="footer-link">Sobre nosotros</a>
+                    <a href="#" class="footer-link">Blog</a>
+                    <a href="#" class="footer-link">Carreras</a>
+                    <a href="#" class="footer-link">Contacto</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-heading">Legal</h4>
+                    <a href="#" class="footer-link">Privacidad</a>
+                    <a href="#" class="footer-link">Términos</a>
+                    <a href="#" class="footer-link">Cookies</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 FOODARA AI. Hecho con ❤️ en Argentina.</p>
+                <p class="footer-tech">FastAPI · Flutter · PostgreSQL · AI</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
