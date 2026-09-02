@@ -336,3 +336,38 @@ body::after { width: 350px; height: 350px; background: rgba(67,230,255,.04); fil
   .greeting h2 { font-size: 26px; }
   .ai-card { padding: 21px; }
 }
+
+/* ===== CAPTURE MODAL ===== */
+.modal-wide { max-width: 520px; }
+.capture-tabs { display: flex; gap: 8px; margin-bottom: 18px; background: rgba(255,255,255,.04); padding: 5px; border-radius: 13px; }
+.cap-tab { flex: 1; padding: 10px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font-weight: 600; font-size: 13px; cursor: pointer; transition: .2s; font-family: inherit; }
+.cap-tab.active { background: rgba(54,242,160,.14); color: var(--primary); }
+.cap-pane { margin-bottom: 14px; }
+
+.qr-reader { width: 100%; max-width: 340px; margin: 0 auto; border-radius: 14px; overflow: hidden; background: #000; min-height: 220px; }
+.qr-reader video { width: 100% !important; object-fit: cover; }
+.qr-result { margin-top: 12px; }
+
+.photo-preview { margin-top: 12px; text-align: center; }
+.photo-preview img { max-height: 180px; border-radius: 14px; border: 1px solid var(--border-strong); }
+.photo-filename { display: block; color: var(--muted); font-size: 11px; margin-top: 6px; }
+
+.cap-preview { background: rgba(54,242,160,.05); border: 1px dashed var(--border-strong); border-radius: 14px; padding: 14px; margin-bottom: 14px; }
+.cap-prod { display: flex; gap: 12px; align-items: center; }
+.cap-prod img { width: 56px; height: 56px; object-fit: cover; border-radius: 12px; background: var(--card-solid); border: 1px solid var(--border); }
+.cap-prod strong { font-size: 15px; display: block; }
+.cap-nutri { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; font-size: 11px; color: var(--muted); }
+.cap-nutri b { color: var(--text); }
+
+.cap-extra { border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; margin-top: 4px; }
+
+.cheaper-box { background: linear-gradient(135deg, rgba(231,198,106,.08), rgba(54,242,160,.05)); border: 1px solid rgba(231,198,106,.3); border-radius: 14px; padding: 14px; margin-top: 6px; }
+.cheaper-head { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 10px; }
+.cheaper-head span { font-weight: 400; color: var(--muted); font-size: 11px; }
+.cheaper-item { display: flex; justify-content: space-between; align-items: center; padding: 9px 2px; border-bottom: 1px solid rgba(255,255,255,.05); }
+.cheaper-item:last-child { border-bottom: 0; }
+.cheaper-item .ci-name { font-size: 13px; }
+.cheaper-item .ci-price { font-weight: 700; font-size: 13px; color: var(--primary); }
+.cheaper-item .ci-save { font-size: 11px; color: var(--warning); font-weight: 700; }
+.cheaper-tip { margin-top: 8px; font-size: 11px; font-style: italic; }
+

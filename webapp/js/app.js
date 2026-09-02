@@ -112,9 +112,9 @@ const app = (() => {
       el.addEventListener('click', () => {
         const act = el.dataset.act;
         go(el.dataset.goto);
-        if (act === 'add-food') setTimeout(() => openFoodDialog(), 300);
-        if (act === 'add-purchase') setTimeout(() => openPurchaseDialog(), 300);
-        if (act === 'add-meal') setTimeout(() => openMealDialog(), 300);
+        if (act === 'add-food') setTimeout(() => openCapture('pantry'), 300);
+        if (act === 'add-purchase') setTimeout(() => openCapture('purchase'), 300);
+        if (act === 'add-meal') setTimeout(() => openCapture('meal'), 300);
       });
     });
   }
@@ -288,7 +288,7 @@ const app = (() => {
   }
 
   function initPantry() {
-    $('#addFoodBtn').addEventListener('click', () => openFoodDialog());
+    $('#addFoodBtn').addEventListener('click', () => openCapture('pantry'));
     $('#foodForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const name = $('#fName').value.trim();
@@ -386,7 +386,7 @@ const app = (() => {
   }
 
   function initPurchases() {
-    $('#addPurchaseBtn').addEventListener('click', openPurchaseDialog);
+    $('#addPurchaseBtn').addEventListener('click', () => openCapture('purchase'));
     $('#addItemBtn').addEventListener('click', () => addPurchaseRow('', 1, ''));
     $('#purchaseForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -541,6 +541,223 @@ const app = (() => {
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
+  /* ================= CAPTURE (manual / QR / photo) ================= */
+  let capTarget = 'pantry';       // pantry | meal | purchase
+  let capTab = 'manual';
+  let capProduct = null;          // {name, brand, image, cal, prot, carb, fat, barcode}
+  let capPhoto = null;            // {dataUrl, fileName}
+
+  const capTitles = { pantry: 'Registrar alimento en despensa', meal: 'Registrar comida (nutrición)', purchase: 'Registrar producto en compra' };
+  const capModes = { pantry: 'Elegí cómo registrar el alimento', meal: 'Elegí cómo registrar la comida', purchase: 'Elegí cómo registrar el producto comprado' };
+
+  function setCapPane(tab) {
+    capTab = tab;
+    $$('#captureTabs .cap-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    ['manual','qr','photo'].forEach(t => $('#pane-' + t).classList.toggle('hidden', t !== tab));
+    if (tab === 'qr') {
+      startQr();
+    } else {
+      FoodaraCapture.stopScan().then(() => FoodaraCapture.releaseStream());
+    }
+  }
+
+  async function startQr() {
+    const st = $('#qrStatus');
+    st.textContent = 'Iniciando cámara...';
+    try {
+      await FoodaraCapture.startScan('qrReader', async (raw) => {
+        // stop after first successful decode
+        await FoodaraCapture.stopScan();
+        await FoodaraCapture.releaseStream();
+        st.textContent = 'Código leído ✓';
+        const data = await FoodaraCapture.lookUpBarcode(raw);
+        applyCapProduct(data);
+      });
+      st.textContent = 'Apuntá la cámara al código de barras.';
+    } catch (e) {
+      st.textContent = 'No se pudo acceder a la cámara. Escribilo manualmente o subí una foto.';
+    }
+  }
+
+  function applyCapProduct(data) {
+    const box = $('#qrStatus');
+    if (!data.ok) { box.textContent = data.error; return; }
+    box.textContent = 'Producto encontrado: ' + data.name;
+    capProduct = {
+      name: data.name,
+      brand: data.brand,
+      image: data.image,
+      cal: data.cal, prot: data.prot, carb: data.carb, fat: data.fat,
+      barcode: data.barcode
+    };
+    renderCapPreview();
+  }
+
+  function renderCapPreview() {
+    const bp = $('#capPreview');
+    if (!capProduct) { bp.classList.add('hidden'); return; }
+    bp.classList.remove('hidden');
+    $('#capName').value = capProduct.name || '';
+    $('#capImg').src = capProduct.image || '';
+    $('#capPName').textContent = capProduct.name || 'Producto';
+    $('#capPSub').textContent = capProduct.barcode ? ('EAN ' + capProduct.barcode + (capProduct.brand ? ' · ' + capProduct.brand : '')) : '';
+    const nut = $('#capNutri');
+    if (capProduct.cal != null) {
+      nut.style.display = 'flex';
+      $('#capCal').textContent = capProduct.cal;
+      $('#capProt').textContent = capProduct.prot != null ? capProduct.prot : '–';
+      $('#capCarb').textContent = capProduct.carb != null ? capProduct.carb : '–';
+      $('#capFat').textContent = capProduct.fat != null ? capProduct.fat : '–';
+    } else {
+      nut.style.display = 'none';
+    }
+  }
+
+  async function openCapture(target) {
+    capTarget = target || 'pantry';
+    // last tab remembered? default manual
+    document.querySelectorAll('dialog').forEach(d => { try { d.close(); } catch(e){} });
+    $('#captureTitle').textContent = capTitles[capTarget] || 'Registrar';
+    $('#captureMode').textContent = capModes[capTarget] || '';
+    $('#capTarget').value = target || 'pantry';
+
+    // clear state
+    capProduct = null;
+    capPhoto = null;
+    $('#capName').value = '';
+    $('#capPrice').value = '';
+    $('#capExpiry').value = '';
+    $('#capQty').value = 1;
+    $('#capCat').value = 'Almacén';
+    $('#capPreview').classList.add('hidden');
+    $('#capNutri').style.display = 'none';
+    $('#photoPreview').classList.add('hidden');
+    $('#cheaperBox').classList.add('hidden');
+    $('#qrResult').innerHTML = '';
+    $('#qrStatus').textContent = 'Apuntá la cámara al código de barras del producto.';
+
+    // show/hide expiry depending on target (pantry only)
+    $('#expiryField').style.display = capTarget === 'pantry' ? 'flex' : 'none';
+    if (capTarget === 'meal') $('#capCat').closest('.field').style.display = 'flex';
+    else $('#capCat').closest('.field').style.display = 'flex';
+
+    setCapPane('manual');
+    $('#captureDialog').showModal();
+    $('#capName').focus();
+    $('#captureDialog').dataset.initialized = '1';
+  }
+
+  function capCurrentPrice() { return +$('#capPrice').value || 0; }
+
+  function updateCheaper() {
+    const name = $('#capName').value.trim();
+    const box = $('#cheaperBox');
+    if (!name) { box.classList.add('hidden'); return; }
+    const res = PriceFinder.findCheaper(name, capCurrentPrice());
+    if (!res.found) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    $('#cheaperSub').textContent = res.current ? ('comprando a ' + formatMoney(res.current)) : 'precios típicos';
+    let html = '';
+    res.options.forEach(o => {
+      html += `<div class="cheaper-item">
+        <span class="ci-name">${escapeHtml(o.label)}</span>
+        <span><span class="ci-price">${formatMoney(o.price)}</span>${o.diff > 0 ? ` <span class="ci-save">−${o.pct}%</span>` : ''}</span>
+      </div>`;
+    });
+    $('#cheaperList').innerHTML = html;
+    $('#cheaperTip').textContent = res.tip + (res.totalAnnual ? ` Con el mejor precio podrías ahorrar ~${formatMoney(res.totalAnnual)} por año.` : '');
+  }
+
+  function saveCapture() {
+    const name = $('#capName').value.trim();
+    if (!name) { toast('Escribí o escaneá un producto'); return; }
+    const qty = +$('#capQty').value || 1;
+    const price = capCurrentPrice();
+    const cat = $('#capCat').value;
+    const data = { name, qty, unit: $('#capTarget').value === 'pantry' ? ($('#fUnit') ? $('#fUnit').value : 'unidad') : 'unidad', cat, price };
+
+    if (capTarget === 'pantry') {
+      data.expiry = $('#capExpiry').value || '';
+      // prefill nutrition from captured product
+      if (capProduct && capProduct.cal != null) data.nutri = { cal: capProduct.cal, prot: capProduct.prot, carb: capProduct.carb, fat: capProduct.fat };
+      Store.commit((db) => db.pantry.push({ id: Store.uid(), ...data, added: today() }));
+      toast('Alimento agregado a tu despensa 🥫');
+    } else if (capTarget === 'meal') {
+      const meal = {
+        id: Store.uid(), date: today(), name,
+        cal: capProduct && capProduct.cal != null ? Math.round(capProduct.cal * qty) : 0,
+        prot: capProduct && capProduct.prot != null ? Math.round(capProduct.prot * qty) : 0,
+        carb: capProduct && capProduct.carb != null ? Math.round(capProduct.carb * qty) : 0,
+        fat: capProduct && capProduct.fat != null ? Math.round(capProduct.fat * qty) : 0
+      };
+      Store.commit((db) => db.meals.push(meal));
+      toast('Comida registrada 🍽️');
+    } else { // purchase
+      Store.commit((db) => db.purchases.push({
+        id: Store.uid(), store: 'Compra manual', date: today(),
+        items: [{ name, qty, price }], total: price * qty
+      }));
+      toast('Producto agregado a compras 🛒');
+    }
+
+    closeCapCapture();
+  }
+
+  function closeCapCapture() {
+    FoodaraCapture.stopScan().then(() => FoodaraCapture.releaseStream());
+    $('#captureDialog').close();
+    renderAll();
+  }
+
+  function initCapture() {
+    $$('#captureTabs .cap-tab').forEach(t => t.addEventListener('click', () => setCapPane(t.dataset.tab)));
+
+    // photo capture
+    $('#takePhotoBtn').addEventListener('click', async () => {
+      const photo = await FoodaraCapture.pickPhoto();
+      if (!photo) return;
+      capPhoto = photo;
+      $('#photoPreview').classList.remove('hidden');
+      $('#photoImg').src = photo.dataUrl;
+      $('#photoName').textContent = photo.fileName;
+      // use filename heuristic to prefill name + category
+      const guess = FoodaraCapture.guessFromFilename(photo.fileName);
+      const foodGuess = PriceFinder.match(photo.fileName);
+      if (guess && !$('#capName').value) $('#capName').value = guess;
+      if (foodGuess) $('#capCat').value = guessPantryCat(foodGuess.base);
+      updateCheaper();
+      toast('Foto cargada ✓');
+    });
+
+    // name input -> live price recommendations
+    $('#capName').addEventListener('input', updateCheaper);
+    $('#capPrice').addEventListener('input', updateCheaper);
+
+    // target change adjusts fields (meal hides price relevance? keep simple)
+    $('#capTarget').addEventListener('change', (e) => {
+      capTarget = e.target.value;
+      $('#expiryField').style.display = capTarget === 'pantry' ? 'flex' : 'none';
+      $('#captureTitle').textContent = capTitles[capTarget];
+    });
+
+    $('#saveCap').addEventListener('click', saveCapture);
+    $('#captureDialog').addEventListener('close', () => {
+      FoodaraCapture.stopScan().then(() => FoodaraCapture.releaseStream());
+    });
+  }
+
+  function guessPantryCat(base) {
+    const n = (base || '').toLowerCase();
+    if (/láct|leche|queso|yogur|manteca/.test(n)) return 'Lácteos';
+    if (/carne|pollo|cerdo|vac|chorizo/.test(n)) return 'Carnes';
+    if (/fruta|banana|manzana|naranja|pera/.test(n)) return 'Frutas';
+    if (/verdura|tomate|cebolla|papa|zanahoria|lechuga|verde/.test(n)) return 'Verduras';
+    if (/agua|gaseosa|jugo|cerveza|vino|bebida/.test(n)) return 'Bebidas';
+    if (/fideo|arroz|harina|azúcar|azucar|sal|aceite|lata|atún|atun|galletita/.test(n)) return 'Almacén';
+    if (/congelad|pizza|helado/.test(n)) return 'Congelados';
+    return 'Otros';
+  }
+
   /* ================= INIT ================= */
   function init() {
     try { apiUrl = localStorage.getItem('foodara_api') || ''; } catch(e){}
@@ -548,6 +765,7 @@ const app = (() => {
     initAuth();
     initPantry();
     initPurchases();
+    initCapture();
     initAI();
     initProfile();
     document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', (e) => {
@@ -556,5 +774,5 @@ const app = (() => {
   }
 
   document.addEventListener('DOMContentLoaded', init);
-  return { user, go };
+  return { user, go, openCapture };
 })();

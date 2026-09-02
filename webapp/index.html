@@ -323,8 +323,97 @@
 
 <div id="toast" class="toast"></div>
 
+<!-- ===== CAPTURE / REGISTER MODAL ===== -->
+<dialog id="captureDialog" class="modal modal-wide">
+  <div class="modal-card">
+    <h3 id="captureTitle">Registrar alimento</h3>
+    <p class="muted small" id="captureMode">Elegí cómo querés registrar</p>
+
+    <div class="capture-tabs" id="captureTabs">
+      <button class="cap-tab active" data-tab="manual">✍️ Manual</button>
+      <button class="cap-tab" data-tab="qr">📷 Código</button>
+      <button class="cap-tab" data-tab="photo">🖼️ Foto</button>
+    </div>
+
+    <!-- MANUAL -->
+    <div class="cap-pane" id="pane-manual">
+      <label class="field"><span>Nombre del producto</span><input type="text" id="capName" placeholder="Ej: Leche, Banana..."></label>
+    </div>
+
+    <!-- QR / BARCODE -->
+    <div class="cap-pane hidden" id="pane-qr">
+      <div id="qrReader" class="qr-reader"></div>
+      <p class="muted small" id="qrStatus">Apuntá la cámara al código de barras del producto.</p>
+      <div id="qrResult" class="qr-result"></div>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="cap-pane hidden" id="pane-photo">
+      <button type="button" class="btn-outline btn-block" id="takePhotoBtn">📸 Sacar / elegir foto</button>
+      <div id="photoPreview" class="photo-preview hidden"><img id="photoImg" alt="Foto"><span class="photo-filename" id="photoName"></span></div>
+    </div>
+
+    <!-- SHARED: captured product preview -->
+    <div id="capPreview" class="cap-preview hidden">
+      <div class="cap-prod">
+        <img id="capImg" alt="" onerror="this.style.display='none'">
+        <div>
+          <strong id="capPName">—</strong>
+          <span class="muted small" id="capPSub"></span>
+        </div>
+      </div>
+      <div class="cap-nutri" id="capNutri" style="display:none">
+        <span>🔥 <b id="capCal">–</b> kcal</span>
+        <span>💪 <b id="capProt">–</b>g</span>
+        <span>🌾 <b id="capCarb">–</b>g</span>
+        <span>🥑 <b id="capFat">–</b>g</span>
+      </div>
+    </div>
+
+    <!-- TARGET: where to save it -->
+    <div class="form-row">
+      <label class="field"><span>Agregar a</span>
+        <select id="capTarget">
+          <option value="pantry">Despensa</option>
+          <option value="meal">Comida (nutrición)</option>
+          <option value="purchase">Compra</option>
+        </select>
+      </label>
+      <label class="field"><span>Cantidad</span><input type="number" id="capQty" min="0.1" step="0.1" value="1"></label>
+    </div>
+
+    <div id="capExtra" class="cap-extra">
+      <div class="form-row">
+        <label class="field" id="expiryField"><span>Vence</span><input type="date" id="capExpiry"></label>
+        <label class="field"><span>Precio ($)</span><input type="number" id="capPrice" min="0" step="0.01" placeholder="0"></label>
+      </div>
+      <label class="field"><span>Categoría</span>
+        <select id="capCat">
+          <option>Lácteos</option><option>Carnes</option><option>Frutas</option><option>Verduras</option><option>Bebidas</option><option>Almacén</option><option>Congelados</option><option>Otros</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- CHEAPER RECOMMENDATIONS -->
+    <div id="cheaperBox" class="cheaper-box hidden">
+      <div class="cheaper-head">💡 Recomendación de precio <span id="cheaperSub"></span></div>
+      <div id="cheaperList"></div>
+      <p class="muted small" id="cheaperTip"></p>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-outline" data-close>Cancelar</button>
+      <button type="button" class="btn-primary" id="saveCap">Guardar</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" class="toast"></div>
+
 <script src="js/store.js"></script>
 <script src="js/ai.js"></script>
+<script src="js/prices.js"></script>
+<script src="js/scanner.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
