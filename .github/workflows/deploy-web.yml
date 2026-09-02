@@ -17,9 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,20 +28,22 @@ jobs:
           cache: true
 
       - name: Enable web
+        working-directory: app
         run: flutter config --enable-web
 
       - name: Install dependencies
+        working-directory: app
         run: flutter pub get
 
       - name: Build web app
+        working-directory: app
         run: flutter build web --release --base-href /foodara-ai/app/
 
       - name: Prepare publish folder
         run: |
-          # Create the publish structure: landing page at root, app in /app/
           mkdir -p publish/app
-          cp -r build/web/* publish/app/
-          cp -r ../website/* publish/
+          cp -r app/build/web/* publish/app/
+          cp -r website/* publish/
           touch publish/.nojekyll
 
       - name: Upload artifact
