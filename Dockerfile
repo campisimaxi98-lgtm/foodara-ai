@@ -28,4 +28,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD python -c "import httpx; httpx.get('http://localhost:8000/api/v1/health')" || exit 1
 
 # Run application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# El script docker-start.sh asegura que las tablas existan antes de arrancar
+# y luego inicia uvicorn. Sobrescribible con --cmd si se prefiere otra cosa.
+RUN chmod +x /app/docker-start.sh
+CMD ["/bin/sh", "/app/docker-start.sh"]

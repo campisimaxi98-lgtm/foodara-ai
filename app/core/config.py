@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     # ============================================
     # DATABASE
     # ============================================
+    # Si se define DATABASE_URL, tiene prioridad (formato compatible con
+    # Render/Heroku/Railway, ej. postgres://user:pass@host:port/dbname).
+    # De lo contrario, se construye a partir de los campos separados.
+    database_url_env: str = ""
+
     db_engine: str = "postgresql"
     db_host: str = "localhost"
     db_port: int = 5432
@@ -46,14 +51,37 @@ class Settings(BaseSettings):
     db_password: str = ""
     db_name: str = "foodara_db"
 
+    def _parse_database_url(self, url: str) -> dict:
+        """Parsear una DATABASE_URL simple y devolver partes relevantes."""
+        import urllib.parse
+
+        # Ej: postgres://user:pass@host:port/dbname  (o postgresql://)
+        parsed = urllib.parse.urlparse(url)
+        result = {
+            "db_user": parsed.username or "",
+            "db_password": urllib.parse.unquote(parsed.password or ""),
+            "db_host": parsed.hostname or "localhost",
+            "db_port": parsed.port or 5432,
+            "db_name": (parsed.path or "").lstrip("/"),
+        }
+        return result
+
     @property
     def database_url(self) -> str:
-        """Construir URL de base de datos async"""
+        """URL de base de datos async (para la API)."""
+        if self.database_url_env:
+            # Asegurar driver asyncpg
+            return self.database_url_env.replace("postgres://", "postgresql+asyncpg://", 1).replace(
+                "postgresql://", "postgresql+asyncpg://", 1
+            )
         return f"postgresql+asyncpg://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
     @property
     def database_url_sync(self) -> str:
-        """Construir URL de base de datos sincrónica (para Alembic)"""
+        """URL de base de datos sincrónica (para Alembic)."""
+        if self.database_url_env:
+            # Asegurar driver psycopg2
+            return self.database_url_env.replace("postgres://", "postgresql://", 1)
         return f"postgresql://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
     # ============================================

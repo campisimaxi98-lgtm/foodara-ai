@@ -1,0 +1,74 @@
+# FOODARA AI - Render Blueprint
+# Documentación: https://render.com/docs/blueprint-spec
+#
+# Cómo desplegar:
+#   1. Crea una cuenta en https://render.com (gratis)
+#   2. En el dashboard: "New > Blueprint"
+#   3. Conecta tu repositorio de GitHub (campisimaxi98/foodara-ai)
+#   4. Render detecta este render.yaml y crea la DB + el servicio automaticamente
+#
+# Alternativa: desplegar manualmente el servicio web y el Postgres por separado.
+
+services:
+  # ============================================
+  # PostgreSQL administrado
+  # ============================================
+  - type: postgres
+    name: foodara-db
+    database: foodara_db
+    user: foodara
+    plan: free
+    ipAllowList: []
+
+  # ============================================
+  # API web (FastAPI)
+  # ============================================
+  - type: web
+    name: foodara-api
+    runtime: docker
+    repo: https://github.com/campisimaxi98-lgtm/foodara-ai
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_NAME
+        value: FOODARA AI
+      - key: APP_VERSION
+        value: 2.0.0
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: "7"
+      - key: RATE_LIMIT_ENABLED
+        value: "true"
+      - key: CURRENCY
+        value: ARS
+      - key: LANGUAGE
+        value: es
+      - key: TIMEZONE
+        value: America/Argentina/Buenos_Aires
+      - key: COUNTRY
+        value: AR
+      # Seguridad: IA desactivada por defecto (sin API keys)
+      - key: ANTHROPIC_ENABLED
+        value: "false"
+      - key: OPENAI_ENABLED
+        value: "false"
+      - key: VISION_ENABLED
+        value: "false"
+      - key: OCR_ENABLED
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: foodara-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: '["*"]'

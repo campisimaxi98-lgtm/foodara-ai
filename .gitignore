@@ -72,8 +72,9 @@ Dockerfile.dev
 Thumbs.db
 
 # Migrations
-alembic/versions/*
-!alembic/versions/.keep
+# No ignoramos alembic/versions - las migraciones deben estar en el repo
+# para poder aplicarse en producción (Render, VPS, etc).
+# alembic/versions/*
 
 # Build artifacts
 /dist/
