@@ -1,4 +1,4 @@
-name: Deploy Flutter Web to GitHub Pages
+name: Deploy Website + Flutter Web to GitHub Pages
 
 on:
   push:
@@ -36,16 +36,21 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build web
-        run: flutter build web --release --base-href /foodara-ai/
+      - name: Build web app
+        run: flutter build web --release --base-href /foodara-ai/app/
 
-      - name: Add .nojekyll
-        run: touch build/web/.nojekyll
+      - name: Prepare publish folder
+        run: |
+          # Create the publish structure: landing page at root, app in /app/
+          mkdir -p publish/app
+          cp -r build/web/* publish/app/
+          cp -r ../website/* publish/
+          touch publish/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: app/build/web
+          path: publish
 
   deploy:
     needs: build
