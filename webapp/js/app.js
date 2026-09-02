@@ -674,7 +674,7 @@ const app = (() => {
     const qty = +$('#capQty').value || 1;
     const price = capCurrentPrice();
     const cat = $('#capCat').value;
-    const data = { name, qty, unit: $('#capTarget').value === 'pantry' ? ($('#fUnit') ? $('#fUnit').value : 'unidad') : 'unidad', cat, price };
+    const data = { name, qty, unit: $('#capUnit').value || 'unidad', cat, price };
 
     if (capTarget === 'pantry') {
       data.expiry = $('#capExpiry').value || '';

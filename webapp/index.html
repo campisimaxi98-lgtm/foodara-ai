@@ -308,6 +308,46 @@
       </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <div class="logo small">F</div>
+        <div>
+          <strong>FOODARA</strong>
+          <span class="muted small">Sistema inteligente de alimentos</span>
+        </div>
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Permisos</h4>
+          <ul>
+            <li>📷 Cámara — para escanear códigos de barras y sacar fotos.</li>
+            <li>🖼️ Galería — para subir fotos de productos y comidas.</li>
+            <li>🌐 Internet — para consultar información de productos.</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Privacidad y derechos</h4>
+          <ul>
+            <li>🔒 Tus datos se guardan localmente en tu dispositivo.</li>
+            <li>✅ No recolectamos ni vendemos tu información personal.</li>
+            <li>⚖️ FOODARA es software libre y gratuito.</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Creador</h4>
+          <ul>
+            <li>👨‍💻 <strong>F. Maximiliano Campissi</strong></li>
+            <li>✉️ campisimaxi98-lgtm@users.noreply.github.com</li>
+            <li>⭐ Desarrollado con ❤️</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="footer-copy">© 2026 F. Maximiliano Campissi · FOODARA. Todos los derechos reservados.</p>
+    </footer>
+
   </main>
 
   <!-- MOBILE NAV -->
@@ -379,19 +419,26 @@
           <option value="purchase">Compra</option>
         </select>
       </label>
+      <label class="field"><span>Unidad</span>
+        <select id="capUnit">
+          <option>unidad</option><option>kg</option><option>g</option><option>litro</option><option>ml</option><option>pack</option><option>docena</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-row">
       <label class="field"><span>Cantidad</span><input type="number" id="capQty" min="0.1" step="0.1" value="1"></label>
+      <label class="field"><span>Precio ($)</span><input type="number" id="capPrice" min="0" step="0.01" placeholder="0"></label>
     </div>
 
     <div id="capExtra" class="cap-extra">
       <div class="form-row">
         <label class="field" id="expiryField"><span>Vence</span><input type="date" id="capExpiry"></label>
-        <label class="field"><span>Precio ($)</span><input type="number" id="capPrice" min="0" step="0.01" placeholder="0"></label>
+        <label class="field"><span>Categoría</span>
+          <select id="capCat">
+            <option>Lácteos</option><option>Carnes</option><option>Frutas</option><option>Verduras</option><option>Bebidas</option><option>Almacén</option><option>Congelados</option><option>Otros</option>
+          </select>
+        </label>
       </div>
-      <label class="field"><span>Categoría</span>
-        <select id="capCat">
-          <option>Lácteos</option><option>Carnes</option><option>Frutas</option><option>Verduras</option><option>Bebidas</option><option>Almacén</option><option>Congelados</option><option>Otros</option>
-        </select>
-      </label>
     </div>
 
     <!-- CHEAPER RECOMMENDATIONS -->
