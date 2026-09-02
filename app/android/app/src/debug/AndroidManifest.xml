@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- El permiso INTERNET es requerido para desarrollo. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- En DEBUG se permite tráfico HTTP sin cifrar para conectarse al
+         backend local (10.0.2.2:8000). En RELEASE el tráfico cleartext queda
+         deshabilitado por seguridad (usar HTTPS en producción). -->
+    <application
+        android:usesCleartextTraffic="true"
+        tools:ignore="MissingApplicationIcon" />
+</manifest>
