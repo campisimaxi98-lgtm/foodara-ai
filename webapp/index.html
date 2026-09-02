@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07110f">
+<meta name="description" content="FOODARA AI - Sistema inteligente de alimentos. Gestioná tus compras, tu despensa, tu nutrición y ahorrá en el supermercado.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>FOODARA AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ===== AUTH SCREEN ===== -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-glow"></div>
+  <div class="auth-card">
+    <div class="auth-logo">F</div>
+    <p class="auth-brand">FOODARA <span>INTELLIGENT FOOD SYSTEM</span></p>
+    <h2 id="authTitle">Bienvenido</h2>
+    <p class="auth-sub" id="authSub">Ingresá a tu sistema inteligente de alimentos</p>
+
+    <form id="authForm" autocomplete="off">
+      <label class="field" id="nameField">
+        <span>Nombre</span>
+        <input type="text" id="authName" placeholder="Tu nombre" autocomplete="name">
+      </label>
+
+      <label class="field">
+        <span>Email</span>
+        <input type="email" id="authEmail" placeholder="tu@email.com" required autocomplete="email">
+      </label>
+
+      <label class="field">
+        <span>Contraseña</span>
+        <input type="password" id="authPassword" placeholder="••••••••" required autocomplete="current-password">
+      </label>
+
+      <p class="auth-error" id="authError"></p>
+
+      <button type="submit" class="btn-primary btn-block" id="authBtn">Ingresar</button>
+    </form>
+
+    <p class="auth-switch" id="authSwitchText">
+      ¿No tenés cuenta? <a href="#" id="authSwitch">Crear cuenta</a>
+    </p>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app" class="app-shell hidden">
+
+  <!-- SIDEBAR (desktop) -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">F</div>
+      <div class="brand-text">
+        <h1>FOODARA</h1>
+        <span>INTELLIGENT FOOD SYSTEM</span>
+      </div>
+    </div>
+
+    <nav class="side-nav" id="sideNav">
+      <a class="nav-link active" data-view="dashboard"><span class="nav-ic">▦</span> Inicio</a>
+      <a class="nav-link" data-view="nutrition"><span class="nav-ic">🥗</span> Nutrición</a>
+      <a class="nav-link" data-view="pantry"><span class="nav-ic">▣</span> Despensa</a>
+      <a class="nav-link" data-view="shopping"><span class="nav-ic">🛒</span> Compras</a>
+      <a class="nav-link" data-view="analytics"><span class="nav-ic">📊</span> Análisis</a>
+      <a class="nav-link" data-view="ai"><span class="nav-ic">✨</span> FOODARA AI</a>
+      <a class="nav-link" data-view="profile"><span class="nav-ic">⚙</span> Perfil</a>
+    </nav>
+
+    <button class="logout-btn" id="logoutBtn">Cerrar sesión · Salir</button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- topbar mobile -->
+    <div class="topbar">
+      <div class="logo small">F</div>
+      <span class="topbar-title">FOODARA</span>
+      <div class="profile-chip" id="profileChip">M</div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="view active" id="view-dashboard">
+      <div class="greeting">
+        <p id="todayDate"></p>
+        <h2>Hola, <strong id="userName">Maximiliano</strong> 👋</h2>
+      </div>
+
+      <section class="ai-card">
+        <div class="ai-content">
+          <div class="ai-label"><span class="status-dot"></span> FOODARA AI · ACTIVO</div>
+          <h3>Tu alimentación, tus gastos y tu bienestar.</h3>
+          <p>FOODARA analiza tus hábitos, tus compras, tu despensa y tu nutrición para ayudarte a tomar mejores decisiones.</p>
+          <button class="btn-primary" data-goto="ai">Hablar con FOODARA AI →</button>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <div class="card">
+          <div class="metric-top"><span class="metric-title">GASTOS</span><div class="metric-icon">$</div></div>
+          <div class="metric-value" id="mGastos">$0</div>
+          <div class="metric-sub good" id="mGastosSub">Este mes</div>
+        </div>
+        <div class="card">
+          <div class="metric-top"><span class="metric-title">CALORÍAS</span><div class="metric-icon">◉</div></div>
+          <div class="metric-value" id="mCalorias">0</div>
+          <div class="metric-sub">kcal hoy</div>
+        </div>
+        <div class="card">
+          <div class="metric-top"><span class="metric-title">DESPENSA</span><div class="metric-icon">▣</div></div>
+          <div class="metric-value" id="mDespensa">0</div>
+          <div class="metric-sub" id="mDespensaSub">items</div>
+        </div>
+        <div class="card">
+          <div class="metric-top"><span class="metric-title">DESPERDICIO</span><div class="metric-icon">♻</div></div>
+          <div class="metric-value" id="mDesperdicio">0%</div>
+          <div class="metric-sub good">Tu eficiencia</div>
+        </div>
+      </section>
+
+      <div class="section-title-block"><h3>Acciones rápidas</h3></div>
+      <div class="quick">
+        <button data-goto="pantry" data-act="add-food">
+          <div class="quick-icon">🥫</div><span>Agregar alimento</span>
+        </button>
+        <button data-goto="shopping" data-act="add-purchase">
+          <div class="quick-icon">🛒</div><span>Registrar compra</span>
+        </button>
+        <button data-goto="nutrition" data-act="add-meal">
+          <div class="quick-icon">🍽️</div><span>Registrar comida</span>
+        </button>
+        <button data-goto="ai">
+          <div class="quick-icon">✨</div><span>Analizar con IA</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== NUTRITION ===== -->
+    <section class="view" id="view-nutrition">
+      <div class="page-head"><div><h2>Nutrición</h2><p class="muted" id="nutriDate">Hoy</p></div><button class="btn-outline" data-act="add-meal">+ Registrar comida</button></div>
+
+      <div class="metrics small-metrics">
+        <div class="card"><span class="metric-title">CALORÍAS</span><div class="metric-value" id="nCal">0</div><div class="metric-sub">/ 2.000 kcal</div></div>
+        <div class="card"><span class="metric-title">PROTEÍNAS</span><div class="metric-value" id="nProt">0g</div><div class="metric-sub">/ 128g</div></div>
+        <div class="card"><span class="metric-title">CARBOHIDRATOS</span><div class="metric-value" id="nCarb">0g</div><div class="metric-sub">/ 225g</div></div>
+        <div class="card"><span class="metric-title">GRASAS</span><div class="metric-value" id="nFat">0g</div><div class="metric-sub">/ 80g</div></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Macronutrientes de hoy</h3></div>
+        <div id="macroBars"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Comidas registradas</h3></div>
+        <div id="mealList" class="list-empty">No registraste comidas hoy.</div>
+      </div>
+    </section>
+
+    <!-- ===== PANTRY ===== -->
+    <section class="view" id="view-pantry">
+      <div class="page-head"><div><h2>Mi despensa</h2><p class="muted" id="pantryCount"></p></div><button class="btn-primary" id="addFoodBtn">+ Agregar alimento</button></div>
+
+      <div id="pantryFilter" class="chips"></div>
+
+      <div id="pantryGrid" class="pantry-grid"></div>
+
+      <dialog id="foodDialog" class="modal">
+        <form method="dialog" class="modal-card" id="foodForm">
+          <h3>Agregar alimento</h3>
+          <label class="field"><span>Nombre</span><input type="text" id="fName" required placeholder="Ej: Leche"></label>
+          <div class="form-row">
+            <label class="field"><span>Cantidad</span><input type="number" id="fQty" min="0.1" step="0.1" value="1"></label>
+            <label class="field"><span>Unidad</span>
+              <select id="fUnit"><option>unidad</option><option>kg</option><option>g</option><option>litro</option><option>pack</option></select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field"><span>Vence</span><input type="date" id="fExpiry"></label>
+            <label class="field"><span>Categoría</span>
+              <select id="fCat">
+                <option>Lácteos</option><option>Carnes</option><option>Frutas</option><option>Verduras</option><option>Bebidas</option><option>Almacén</option><option>Congelados</option><option>Otros</option>
+              </select>
+            </label>
+          </div>
+          <label class="field"><span>Precio aprox. ($)</span><input type="number" id="fPrice" min="0" step="0.01" value="0"></label>
+          <div class="modal-actions">
+            <button type="button" class="btn-outline" data-close>Cancelar</button>
+            <button type="submit" class="btn-primary">Guardar</button>
+          </div>
+        </form>
+      </dialog>
+    </section>
+
+    <!-- ===== SHOPPING ===== -->
+    <section class="view" id="view-shopping">
+      <div class="page-head"><div><h2>Compras</h2><p class="muted" id="shopCount"></p></div><button class="btn-primary" id="addPurchaseBtn">+ Registrar compra</button></div>
+
+      <div class="metrics small-metrics">
+        <div class="card"><span class="metric-title">GASTO DEL MES</span><div class="metric-value" id="sTotal">$0</div><div class="metric-sub" id="sTotalSub">Sin datos</div></div>
+        <div class="card"><span class="metric-title">PROMEDIO</span><div class="metric-value" id="sAvg">$0</div><div class="metric-sub">por compra</div></div>
+        <div class="card"><span class="metric-title">COMPRAS</span><div class="metric-value" id="sCount">0</div><div class="metric-sub">en total</div></div>
+        <div class="card"><span class="metric-title">AHORRO EST.</span><div class="metric-value good" id="sSave">$0</div><div class="metric-sub">con FOODARA</div></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Historial de compras</h3></div>
+        <div id="purchaseList" class="list-empty">Aún no registraste compras.</div>
+      </div>
+
+      <dialog id="purchaseDialog" class="modal">
+        <form method="dialog" class="modal-card" id="purchaseForm">
+          <h3>Registrar compra</h3>
+          <label class="field"><span>Establecimiento</span><input type="text" id="pStore" placeholder="Ej: Supermercado"></label>
+          <label class="field"><span>Fecha</span><input type="date" id="pDate"></label>
+          <div id="purchaseItems" class="purchase-items"></div>
+          <button type="button" class="btn-outline btn-block" id="addItemBtn">+ Agregar item</button>
+          <div class="form-row total-row">
+            <span>Total</span><strong id="pTotalPreview">$0</strong>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-outline" data-close>Cancelar</button>
+            <button type="submit" class="btn-primary">Guardar compra</button>
+          </div>
+        </form>
+      </dialog>
+    </section>
+
+    <!-- ===== ANALYTICS ===== -->
+    <section class="view" id="view-analytics">
+      <div class="page-head"><div><h2>Análisis</h2><p class="muted">Tu evolución</p></div></div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Evolución de gastos <span class="muted" id="rangeLabel">Últimos 7 días</span></h3></div>
+        <div class="chart" id="expenseChart"></div>
+        <div class="days" id="chartDays"></div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="card">
+          <div class="section-title-block"><h3>Desperdicio evitado</h3></div>
+          <div class="big-number good" id="wasteAvoided">—</div>
+          <p class="muted">En base a lo registrado en tu despensa</p>
+        </div>
+        <div class="card">
+          <div class="section-title-block"><h3>Distribución de gastos</h3></div>
+          <div id="categoryBars"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AI ===== -->
+    <section class="view" id="view-ai">
+      <div class="page-head"><div><h2>FOODARA AI</h2><p class="muted">Asistente con tus datos</p></div></div>
+
+      <div class="chat-card" id="chatBody">
+        <div class="msg bot">
+          <div class="bubble">Hola 👋 Soy FOODARA AI. Conozco tu despensa, tus compras y tu nutrición. ¿Cómo puedo ayudarte hoy?</div>
+        </div>
+      </div>
+
+      <div class="ai-suggestions" id="aiSuggestions"></div>
+
+      <form class="chat-input" id="chatForm">
+        <input type="text" id="chatField" placeholder="Preguntale a FOODARA...  (ej: ¿qué tengo por vencer?)" autocomplete="off">
+        <button type="submit" class="btn-primary">➤</button>
+      </form>
+    </section>
+
+    <!-- ===== PROFILE ===== -->
+    <section class="view" id="view-profile">
+      <div class="page-head"><div><h2>Perfil</h2><p class="muted">Configuración</p></div></div>
+
+      <div class="card profile-card">
+        <div class="profile-avatar" id="profileAvatar">M</div>
+        <h3 id="profileName">Maximiliano</h3>
+        <p class="muted" id="profileEmail">max@foodara.app</p>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Objetivos diarios</h3></div>
+        <div class="setting-row"><span>Calorías (kcal)</span><input type="number" id="goalCal" class="input-mini"></div>
+        <div class="setting-row"><span>Proteínas (g)</span><input type="number" id="goalProt" class="input-mini"></div>
+        <div class="setting-row"><span>Carbohidratos (g)</span><input type="number" id="goalCarb" class="input-mini"></div>
+        <div class="setting-row"><span>Grasas (g)</span><input type="number" id="goalFat" class="input-mini"></div>
+        <button class="btn-primary btn-block mt" id="saveGoals">Guardar objetivos</button>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Servidor</h3></div>
+        <label class="field"><span>URL de la API (opcional)</span><input type="text" id="apiUrl" placeholder="https://foodara-api.onrender.com"></label>
+        <p class="muted small">Dejalo vacío para usar datos locales. Cuando el backend esté online, pegá su URL acá.</p>
+        <button class="btn-outline btn-block mt" id="saveApi">Guardar servidor</button>
+        <p class="small muted" id="apiStatus"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title-block"><h3>Datos</h3></div>
+        <button class="btn-danger-ghost btn-block" id="resetData">Restablecer todos los datos</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE NAV -->
+  <nav class="bottom-nav" id="bottomNav">
+    <div class="nav-item active" data-view="dashboard"><div>⌂</div> Inicio</div>
+    <div class="nav-item" data-view="nutrition"><div>🥗</div> Nutrición</div>
+    <div class="nav-item" data-view="pantry"><div>▣</div> Despensa</div>
+    <div class="nav-item" data-view="shopping"><div>🛒</div> Compras</div>
+    <div class="nav-item" data-view="ai"><div>✨</div> IA</div>
+  </nav>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/store.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

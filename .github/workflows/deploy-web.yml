@@ -1,4 +1,4 @@
-name: Deploy Website + Flutter Web to GitHub Pages
+name: Deploy Website + Web App to GitHub Pages
 
 on:
   push:
@@ -21,28 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-
-      - name: Enable web
-        working-directory: app
-        run: flutter config --enable-web
-
-      - name: Install dependencies
-        working-directory: app
-        run: flutter pub get
-
-      - name: Build web app
-        working-directory: app
-        run: flutter build web --release --base-href /foodara-ai/app/
-
       - name: Prepare publish folder
         run: |
           mkdir -p publish/app
-          cp -r app/build/web/* publish/app/
+          cp -r webapp/* publish/app/
           cp -r website/* publish/
           touch publish/.nojekyll
 
