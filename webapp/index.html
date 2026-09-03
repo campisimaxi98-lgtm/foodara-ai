@@ -72,6 +72,7 @@
       <a class="nav-link" data-view="analytics"><span class="nav-ic">📊</span> Análisis</a>
       <a class="nav-link" data-view="ai"><span class="nav-ic">✨</span> FOODARA AI</a>
       <a class="nav-link" data-view="profile"><span class="nav-ic">⚙</span> Perfil</a>
+      <a class="nav-link" data-view="about"><span class="nav-ic">ℹ</span> Acerca de</a>
     </nav>
 
     <button class="logout-btn" id="logoutBtn">Cerrar sesión · Salir</button>
@@ -303,50 +304,61 @@
       </div>
 
       <div class="card">
+        <div class="section-title-block"><h3>Información</h3></div>
+        <p class="muted small">Preguntas frecuentes, permisos, privacidad e info del creador.</p>
+        <button class="btn-outline btn-block mt" data-goto="about">📄 Acerca de FOODARA</button>
+      </div>
+
+      <div class="card">
         <div class="section-title-block"><h3>Datos</h3></div>
         <button class="btn-danger-ghost btn-block" id="resetData">Restablecer todos los datos</button>
       </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="site-footer">
-      <div class="footer-brand">
-        <div class="logo small">F</div>
-        <div>
-          <strong>FOODARA</strong>
-          <span class="muted small">Sistema inteligente de alimentos</span>
+    <!-- ===== ABOUT / CREATOR ===== -->
+    <section class="view" id="view-about">
+      <div class="page-head"><div><h2>Acerca de</h2><p class="muted">Permisos, derechos y creador</p></div></div>
+
+      <div class="card about-card">
+        <div class="footer-brand">
+          <div class="logo small">F</div>
+          <div>
+            <strong>FOODARA</strong>
+            <span class="muted small">Sistema inteligente de alimentos</span>
+          </div>
         </div>
+        <p class="muted small">App gratis para registrar alimentos, comidas y compras, controlar tu nutrición y encontrar productos más baratos.</p>
       </div>
 
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4>Permisos</h4>
-          <ul>
-            <li>📷 Cámara — para escanear códigos de barras y sacar fotos.</li>
-            <li>🖼️ Galería — para subir fotos de productos y comidas.</li>
-            <li>🌐 Internet — para consultar información de productos.</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Privacidad y derechos</h4>
-          <ul>
-            <li>🔒 Tus datos se guardan localmente en tu dispositivo.</li>
-            <li>✅ No recolectamos ni vendemos tu información personal.</li>
-            <li>⚖️ FOODARA es software libre y gratuito.</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Creador</h4>
-          <ul>
-            <li>👨‍💻 <strong>F. Maximiliano Campissi</strong></li>
-            <li>✉️ campisimaxi98-lgtm@users.noreply.github.com</li>
-            <li>⭐ Desarrollado con ❤️</li>
-          </ul>
-        </div>
+      <div class="card about-card">
+        <div class="section-title-block"><h3>🧑‍💻 Creador</h3></div>
+        <ul class="about-list">
+          <li>👨‍💻 <strong>F. Maximiliano Campissi</strong></li>
+          <li>✉️ campisimaxi98-lgtm@users.noreply.github.com</li>
+          <li>⭐ Desarrollado con ❤️</li>
+        </ul>
       </div>
 
-      <p class="footer-copy">© 2026 F. Maximiliano Campissi · FOODARA. Todos los derechos reservados.</p>
-    </footer>
+      <div class="card about-card">
+        <div class="section-title-block"><h3>🔐 Permisos</h3></div>
+        <ul class="about-list">
+          <li>📷 <strong>Cámara</strong> — para escanear códigos de barras y sacar fotos.</li>
+          <li>🖼️ <strong>Galería</strong> — para subir fotos de productos y comidas.</li>
+          <li>🌐 <strong>Internet</strong> — para consultar información de productos.</li>
+        </ul>
+      </div>
+
+      <div class="card about-card">
+        <div class="section-title-block"><h3>🔒 Privacidad y derechos</h3></div>
+        <ul class="about-list">
+          <li>🔒 Tus datos se guardan localmente en tu dispositivo.</li>
+          <li>✅ No recolectamos ni vendemos tu información personal.</li>
+          <li>⚖️ FOODARA es software libre y gratuito.</li>
+        </ul>
+      </div>
+
+      <p class="about-copy">© 2026 F. Maximiliano Campissi · FOODARA. Todos los derechos reservados.</p>
+    </section>
 
   </main>
 
@@ -357,6 +369,7 @@
     <div class="nav-item" data-view="pantry"><div>▣</div> Despensa</div>
     <div class="nav-item" data-view="shopping"><div>🛒</div> Compras</div>
     <div class="nav-item" data-view="ai"><div>✨</div> IA</div>
+    <div class="nav-item" data-view="about"><div>ℹ</div> Info</div>
   </nav>
 
 </div>

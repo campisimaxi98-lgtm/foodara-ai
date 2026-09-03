@@ -656,7 +656,7 @@ const app = (() => {
     const res = PriceFinder.findCheaper(name, capCurrentPrice());
     if (!res.found) { box.classList.add('hidden'); return; }
     box.classList.remove('hidden');
-    $('#cheaperSub').textContent = res.current ? ('comprando a ' + formatMoney(res.current)) : 'precios típicos';
+    $('#cheaperSub').textContent = (res.current ? ('comprando a ' + formatMoney(res.current)) : 'precios típicos') + (res.kcal ? ` · ${res.cat} · ~${res.kcal} kcal` : '');
     let html = '';
     res.options.forEach(o => {
       html += `<div class="cheaper-item">
@@ -683,9 +683,11 @@ const app = (() => {
       Store.commit((db) => db.pantry.push({ id: Store.uid(), ...data, added: today() }));
       toast('Alimento agregado a tu despensa 🥫');
     } else if (capTarget === 'meal') {
+      const catalog = PriceFinder.findCheaper(name);
+      const cal = capProduct && capProduct.cal != null ? capProduct.cal : (catalog && catalog.kcal ? catalog.kcal : 0);
       const meal = {
         id: Store.uid(), date: today(), name,
-        cal: capProduct && capProduct.cal != null ? Math.round(capProduct.cal * qty) : 0,
+        cal: Math.round(cal * qty),
         prot: capProduct && capProduct.prot != null ? Math.round(capProduct.prot * qty) : 0,
         carb: capProduct && capProduct.carb != null ? Math.round(capProduct.carb * qty) : 0,
         fat: capProduct && capProduct.fat != null ? Math.round(capProduct.fat * qty) : 0

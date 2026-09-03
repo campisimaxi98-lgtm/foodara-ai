@@ -400,4 +400,14 @@ body::after { width: 350px; height: 350px; background: rgba(67,230,255,.04); fil
   .footer-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 
+/* ===== ABOUT VIEW ===== */
+.view#view-about { padding-bottom: 20px; }
+.about-card { margin-bottom: 16px; }
+.about-card .section-title-block h3 { margin-bottom: 4px; }
+.about-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.about-list li { font-size: 13px; line-height: 1.5; color: var(--muted); }
+.about-list li strong { color: var(--text); }
+.about-copy { margin: 22px 0 0; text-align: center; font-size: 11px; color: var(--muted); padding-top: 14px; border-top: 1px solid rgba(255,255,255,.06); }
+
+
 
